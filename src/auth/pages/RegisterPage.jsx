@@ -1,19 +1,44 @@
 import { Button, Grid, TextField, Typography, Link } from "@mui/material";
-import { Google } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from "../layout/AuthLayout";
+import { useForm } from "../../hooks";
+
+
+
+
+
+const formData = {
+    displayName: 'Chipy Stola',
+    email: 'chipy@google.com',
+    password: '123456'
+}
+
+
+
 
 export const RegisterPage = () => {
+
+ const  { displayName, email, password, onInputChange, formState } = useForm(formData);
+
+const onSubmit = ( event ) => {
+    event.preventDefault();
+    console.log(formState);
+    
+}
+
     return (
         <AuthLayout title="Crear Cuenta">
-            <form>
+            <form onSubmit={ onSubmit } >
                 <Grid container direction="column" spacing={2}>
                     <Grid sx={{ width: '100%' }}>
                         <TextField
-                            label="Nombre"
+                            label="Name"
                             type="text"
                             placeholder="Chipy"
                             fullWidth
+                            name="displayName"
+                            value={ displayName }
+                            onChange={ onInputChange }
                         />
                     </Grid>
                     <Grid sx={{ width: '100%' }}>
@@ -22,6 +47,9 @@ export const RegisterPage = () => {
                             type="email"
                             placeholder="correo@google.com"
                             fullWidth
+                            name="email"
+                            value={ email }
+                            onChange={ onInputChange }
                         />
                     </Grid>
 
@@ -31,6 +59,10 @@ export const RegisterPage = () => {
                             type="password"
                             placeholder="Contraseña"
                             fullWidth
+                            name="password"
+                            value={ password }
+                            onChange={ onInputChange }
+                            
                         />
                     </Grid>
 
@@ -38,7 +70,7 @@ export const RegisterPage = () => {
                     {/* Botones con margen superior */}
                     <Grid container direction="column" spacing={2} sx={{ mt: 3 }}>
                         <Grid sx={{ width: '100%' }}>
-                            <Button variant="outlined" fullWidth>
+                            <Button type="submit" variant="outlined" fullWidth>
                                 Crear una Cuenta
                             </Button>
                         </Grid>
