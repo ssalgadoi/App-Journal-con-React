@@ -2,11 +2,39 @@ import { Button, Grid, TextField, Typography, Link } from "@mui/material";
 import { Google } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import { AuthLayout } from "../layout/AuthLayout";
+import { useForm } from "../../hooks";
+import { useDispatch } from "react-redux";
+import { checkingAuthentication, startGoogleSignIn } from "../../store/auth";
+
+
+
+useForm
 
 export const LoginPage = () => {
+
+    const dispatch = useDispatch()
+
+    const  { email, password, onInputChange } = useForm({
+        email: 'chipy@google.com',
+        password: '123456'
+    });
+
+
+    const onSubmit = (event ) => {
+        event.preventDefault();
+        console.log({ email, password});
+        dispatch( checkingAuthentication() )
+        
+    }
+
+    const onGoogleSignIn = () => {
+        console.log('onGoogleSignIn');
+        dispatch( startGoogleSignIn())
+        
+    }
     return (
         <AuthLayout title="Login!!!">
-            <form>
+            <form onSubmit={ onSubmit }>
                 <Grid container direction="column" spacing={2}>
                     <Grid sx={{ width: '100%' }}>
                         <TextField
@@ -14,6 +42,9 @@ export const LoginPage = () => {
                             type="email"
                             placeholder="correo@google.com"
                             fullWidth
+                            name="email"
+                            onChange={ onInputChange }
+                            value={ email }
                         />
                     </Grid>
 
@@ -23,6 +54,9 @@ export const LoginPage = () => {
                             type="password"
                             placeholder="Contraseña"
                             fullWidth
+                            name="password"
+                            onChange={ onInputChange }
+                            value={ password }
                         />
                     </Grid>
 
@@ -30,12 +64,12 @@ export const LoginPage = () => {
                     {/* Botones con margen superior */}
                     <Grid container direction="column" spacing={2} sx={{ mt: 3 }}>
                         <Grid sx={{ width: '100%' }}>
-                            <Button variant="outlined" fullWidth>
+                            <Button type="submit" variant="outlined" fullWidth>
                                 Login
                             </Button>
                         </Grid>
                         <Grid sx={{ width: '100%' }}>
-                            <Button variant="contained" fullWidth>
+                            <Button onClick={ onGoogleSignIn } variant="contained" fullWidth>
                                 <Google />
                                 <Typography sx={{ ml: 1 }}>Google</Typography>
                             </Button>
