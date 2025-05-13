@@ -40,7 +40,7 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
             
         }
         setFormValidation( formCheckedValues )
-        console.log("Validación actual:", formCheckedValues);
+      
         
     }
     return {
