@@ -1,12 +1,7 @@
 import { checkingCredentials, logout, login } from "./";
-import { registerUserWithEmailPassword, signInWithGoogle, loginWithEmailPassword } from "../../firebase/providers";
+import { registerUserWithEmailPassword, signInWithGoogle, loginWithEmailPassword, logoutFirebase } from "../../firebase/providers";
 
-// Comprobación de credenciales mientras se autentica
-// export const checkingAuthentication = (email, password) => {
-//     return async (dispatch) => {
-//         dispatch(checkingCredentials());
-//     };
-// };
+
 export const checkingAuthentication = (email, password) => {
     return async (dispatch) => {
         dispatch(checkingCredentials());  // Cambia el estado a 'checking' en tu store
@@ -63,3 +58,11 @@ export const startLoginWithEmailPassword = ({ email, password }) => {
         dispatch(login({ uid, displayName, email, photoURL }));
     };
 };
+
+export const startLogout = () => {
+    return async( dispatch ) => {
+        await logoutFirebase();
+
+        dispatch(logout());
+    }
+}
