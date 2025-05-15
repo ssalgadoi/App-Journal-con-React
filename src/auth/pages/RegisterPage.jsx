@@ -103,7 +103,7 @@ export const RegisterPage = () => {
                     {/* Botones con margen superior */}
                     <Grid container direction="column" spacing={2} sx={{ mt: 3 }}>
                         {!!errorMessage && (
-                            <Grid item xs={12}>
+                            <Grid >
                                 <Alert severity="error">{errorMessage}</Alert>
                             </Grid>
                         )}

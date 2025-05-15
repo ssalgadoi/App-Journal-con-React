@@ -7,6 +7,7 @@ import { startLoadingNotes } from "../store/journal/thunks";
 
 
 
+
 export const useCheckAuth = () => {
         const { status } = useSelector( state => state.auth );
         const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export const useCheckAuth = () => {
                 if ( !user ) return dispatch( logout())
                 const { uid, email, displayName, photoURL } = user;
                 dispatch(login({ uid, email, displayName, photoURL }));
-                dispatch( startLoadingNotes())
+                dispatch(startLoadingNotes())
             } )
         }, [ dispatch ]);
 

@@ -1,12 +1,12 @@
-import { TurnedInNot } from "@mui/icons-material"
-import { ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
-import { useMemo } from "react"
-import { useDispatch } from "react-redux"
-import { setActiveNote } from "../../store/journal/journalSlice"
+
+import { Grid, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
+import { TurnedInNot } from '@mui/icons-material';
+import { useMemo } from 'react';
+import { setActiveNote } from '../../store/journal/journalSlice';
+import { useDispatch } from 'react-redux';
 
 
-
-export const SideBarItem = ({ title = '', body, id, date, imageUrls = [] }) => {
+export const SideBarItem = ({ body, title = '', id, date, imageUrls = [] }) => {
 
     const dispatch = useDispatch();
     const onClickNote = () => {
@@ -14,23 +14,24 @@ export const SideBarItem = ({ title = '', body, id, date, imageUrls = [] }) => {
     }
     const newTitle = useMemo(() => {
         return title.length > 17
-        ? title.substring(0,17) + "..."
-        : title;
+            ? title.substring(0,17) + '...'
+            : title;
     }, [ title ])
     return (
         <ListItem disablePadding>
-            <ListItemButton onClick={onClickNote}>
-                {/* Icono separado */}
+            <ListItemButton onClick={ onClickNote}>
+                {/* Icono */}
                 <ListItemIcon>
                     <TurnedInNot />
                 </ListItemIcon>
+                <Grid container>
+        
+                {/* Texto */}
+                <ListItemText primary={ newTitle } secondary={ body}/>
+                
+                </Grid>
 
-                {/* Texto principal y secundario */}
-                <ListItemText
-                    primary={newTitle}
-                    secondary={body}
-                />
             </ListItemButton>
         </ListItem>
-    )
-}
+    );
+};
